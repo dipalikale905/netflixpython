@@ -286,16 +286,6 @@ def show_dashboard(data: pd.DataFrame) -> None:
 		)
 
 	st.markdown(" ")
-	with st.container(border=True):
-		if "Viewing_Records" in filtered.columns:
-			daily_views = filtered.set_index("Watch_Date")["Viewing_Records"].resample("MS").sum()
-		else:
-			daily_views = filtered.set_index("Watch_Date").resample("MS").size()
-		daily_views.index = daily_views.index.strftime("%b %Y")
-		st.subheader("Viewing activity over time")
-		st.bar_chart(daily_views.rename("Viewing records"), color="#e50914", height=260)
-
-	st.markdown(" ")
 	with st.expander("Dataset details"):
 		detail_left, detail_right = st.columns(2)
 		detail_left.write(f"**Rows shown:** {len(filtered):,} of {len(data):,}")
